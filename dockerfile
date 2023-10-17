@@ -1,10 +1,10 @@
 FROM node:14
 
-COPY ..
+COPY . .
 
-RUN nmp install \
-  && nmp run build
+RUN npm install \
+  && npm run build
 
 EXPOSE 3000
 
-ENTRYPOINT nmp run start
+ENTRYPOINT npm run start
