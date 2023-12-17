@@ -120,4 +120,22 @@ jobs:
       #  env:
       #    FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       #    FIREBASE_PROJECT: zaloudek-devops
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: |
+          source /opt/pipx/venvs/ansible-core/bin/activate
+          python -m pip install boto3 botocore
+
+      - name: Ansible pplaybook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ec2_deploy.yml
+          directory: ./ansible
+          key: ${{ secrets.AWS_SSH_KEY }}
+          options: |
+            --user ec2-user
+            --extra-vars "access_key=${{ secrets.AWS_ACCESS_KEY }} secret_key=${{ secrets.AWS_SECRET_KEY }} session_token=${{ secrets.AWS_SESSION_TOKEN }}"
 
