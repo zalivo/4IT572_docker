@@ -133,7 +133,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ec2_deploy.yml
-          key: ${{ secrets.AWS_SSH_KEY }}
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
           options: |
             --user ec2-user
             --extra-vars "access_key=${{ secrets.AWS_ACCESS_KEY }} secret_key=${{ secrets.AWS_SECRET_KEY }} session_token=${{ secrets.AWS_SESSION_TOKEN }}"
